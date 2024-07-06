@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Player Recommendation</title>
+  </head>
+  <body>
+    <h1>Player Recommendation System</h1>
+    <form action="/recommend" method="post">
+      <label for="draft_year">Draft Year:</label>
+      <input type="number" id="draft_year" name="draft_year" required><br><br>
+      <label for="team_need">Team Need:</label>
+      <select id="team_need" name="team_need" required>
+        <option value="shooter">Shooter</option>
+        <option value="playmaker">Playmaker</option>
+        <option value="defender">Defender</option>
+      </select><br><br>
+      <input type="submit" value="Get Recommendations">
+    </form>
+  </body>
+</html>

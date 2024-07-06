@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Player Recommendations</title>
+  </head>
+  <body>
+    <h1>Recommended Players</h1>
+    <table border="1">
+      <tr>
+        <th>Player</th>
+        <th>Predicted Win Shares</th>
+        <th>PTS</th>
+        <th>AST</th>
+        <th>TRB</th>
+      </tr>
+      {% for player in players %}
+      <tr>
+        <td>{{ player['Player'] }}</td>
+        <td>{{ player['predicted_win_shares'] }}</td>
+        <td>{{ player['pts_per_g'] }}</td>
+        <td>{{ player['ast_per_g'] }}</td>
+        <td>{{ player['trb_per_g'] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <br>
+    <a href="/">Back</a>
+  </body>
+</html>
