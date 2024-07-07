@@ -26,6 +26,7 @@ college_df = pd.read_csv(file_path, header=0)
 
 df = pd.merge(college_df, nba_df, left_on='player', right_on='Player')
 df = df.dropna(subset=['College'])
+df_24 = pd.read_csv('nbacollege24.csv')
 
 @app.route('/')
 def home():
@@ -37,8 +38,8 @@ def recommend():
     team_need = request.form['team_need']
     pick_in_draft = int(request.form['pick'])
 
-    testing_df = df[df['draft_year'] == draft_year]
-    training_df = df[df['draft_year'] != draft_year]
+    testing_df = df_24
+    training_df = df
 
    
     def kmeans_clustering(df, features):
@@ -62,7 +63,7 @@ def recommend():
     X_train = training_df[features]
     y_train = training_df['WS']
     X_test = testing_df[features]
-    y_test = testing_df['WS']
+    
 
     model = LinearRegression()
     model.fit(X_train, y_train)
