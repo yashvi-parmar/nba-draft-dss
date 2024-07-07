@@ -1,29 +1,75 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Player Recommendation</title>
-  </head>
-  <body>
-    <h1>Player Recommendation System</h1>
-    <form action="/recommend" method="post">
-      <label for="draft_year">Draft Year:</label>
-      <select id="draft_year" name="draft_year" required>
-        <option value="23">23</option>
-        <option value="22">22</option>
-        <option value="21">21</option>
-        <option value="20">20</option>
-        <option value="19">19</option>
-        <option value="18">18</option>
-      </select><br><br>
-      <label for="team_need">Team Need:</label>
-      <select id="team_need" name="team_need" required>
-        <option value="shooter">Shooter</option>
-        <option value="playmaker">Playmaker</option>
-        <option value="defender">Defender</option>
-      </select><br><br>
-      <input type="submit" value="Get Recommendations">
-    </form>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Player Recommendation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    select, input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Player Recommendation System</h1>
+  <form action="/recommend" method="post">
+    <label for="draft_year">Draft Year:</label>
+    <select id="draft_year" name="draft_year" required>
+      <option value="23">2023</option>
+      <option value="22">2022</option>
+      <option value="21">2021</option>
+      <option value="20">2020</option>
+      <option value="19">2019</option>
+      <option value="18">2018</option>
+    </select><br><br>
+    <label for="pick">Pick Number:</label>
+    <input type="text" id="pick" name="pick" required>
+    <br><br>
+    <label for="team_need">Team Need:</label>
+    <select id="team_need" name="team_need" required>
+      <option value="shooter">Shooter</option>
+      <option value="playmaker">Playmaker</option>
+      <option value="defender">Defender</option>
+    </select><br><br>
+    <input type="submit" value="Get Recommendations">
+  </form>
+</body>
 </html>

@@ -9,7 +9,6 @@ import os
 
 app = Flask(__name__)
 
-# Load datasets once
 lists = ['NBA18.txt', 'NBA19.txt', 'NBA20.txt', 'NBA21.txt', 'NBA22.txt', 'NBA23.txt']
 df = pd.DataFrame()
 
@@ -36,11 +35,12 @@ def home():
 def recommend():
     draft_year = int(request.form['draft_year'])
     team_need = request.form['team_need']
+    pick_in_draft = int(request.form['pick'])
 
     testing_df = df[df['draft_year'] == draft_year]
     training_df = df[df['draft_year'] != draft_year]
 
-    # Ensure clustering and regression are re-run with new inputs
+   
     def kmeans_clustering(df, features):
         scaler = StandardScaler()
         scaled_features = scaler.fit_transform(df[features])
@@ -70,23 +70,35 @@ def recommend():
     y_pred = model.predict(X_test)
 
     testing_df['predicted_win_shares'] = y_pred
+    empty = pd.DataFrame()
+    def recommend_players(team_need, pick_in_draft):
 
-    def recommend_players(team_need):
         if team_need == 'shooter':
-            cluster_label = 1
-        elif team_need == 'playmaker':
             cluster_label = 2
-        elif team_need == 'defender':
+        elif team_need == 'playmaker':
             cluster_label = 0
+        elif team_need == 'defender':
+            cluster_label = 1
         else:
             return "Invalid team need specified."
 
         test = testing_df[testing_df['cluster'] == cluster_label]
 
-        top_players = test.sort_values(by='predicted_win_shares', ascending=False).head(3)
-        return top_players
+        top_players = test.sort_values(by='predicted_win_shares', ascending=False)
 
-    top_3_players = recommend_players(team_need)
+        players_per_pick = 3  
+        draft_range_start = (pick_in_draft - 1) + players_per_pick
+        draft_range_end = pick_in_draft + players_per_pick + 3
+
+        if (draft_range_start >= len(top_players)) :
+            return empty
+
+    
+        top_players_in_range = top_players.iloc[draft_range_start:draft_range_end]
+
+        return top_players_in_range.head(3)
+
+    top_3_players = recommend_players(team_need, pick_in_draft)
 
     return render_template('results.html', players=top_3_players.to_dict(orient='records'))
 
