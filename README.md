@@ -1,3 +1,3 @@
 To run: 
-Dowload all files 
-Run python3 app.py in the directory
+1. Dowload all files 
+2. Run python3 app.py in the directory
